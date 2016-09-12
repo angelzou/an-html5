@@ -1,0 +1,151 @@
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet: width height image $spritesheet-sprites;
+*/
+$logo-movie-name: 'logo-movie';
+$logo-movie-x: 0px;
+$logo-movie-y: 0px;
+$logo-movie-offset-x: 0px;
+$logo-movie-offset-y: 0px;
+$logo-movie-width: 100px;
+$logo-movie-height: 100px;
+$logo-movie-total-width: 250px;
+$logo-movie-total-height: 200px;
+$logo-movie-image: 'sprite.png';
+$logo-movie: (0px, 0px, 0px, 0px, 100px, 100px, 250px, 200px, 'sprite.png', 'logo-movie', );
+$logo-video-name: 'logo-video';
+$logo-video-x: 100px;
+$logo-video-y: 0px;
+$logo-video-offset-x: -100px;
+$logo-video-offset-y: 0px;
+$logo-video-width: 100px;
+$logo-video-height: 100px;
+$logo-video-total-width: 250px;
+$logo-video-total-height: 200px;
+$logo-video-image: 'sprite.png';
+$logo-video: (100px, 0px, -100px, 0px, 100px, 100px, 250px, 200px, 'sprite.png', 'logo-video', );
+$logo-wechat-name: 'logo-wechat';
+$logo-wechat-x: 0px;
+$logo-wechat-y: 100px;
+$logo-wechat-offset-x: 0px;
+$logo-wechat-offset-y: -100px;
+$logo-wechat-width: 100px;
+$logo-wechat-height: 100px;
+$logo-wechat-total-width: 250px;
+$logo-wechat-total-height: 200px;
+$logo-wechat-image: 'sprite.png';
+$logo-wechat: (0px, 100px, 0px, -100px, 100px, 100px, 250px, 200px, 'sprite.png', 'logo-wechat', );
+$logo-weibo-name: 'logo-weibo';
+$logo-weibo-x: 100px;
+$logo-weibo-y: 100px;
+$logo-weibo-offset-x: -100px;
+$logo-weibo-offset-y: -100px;
+$logo-weibo-width: 100px;
+$logo-weibo-height: 100px;
+$logo-weibo-total-width: 250px;
+$logo-weibo-total-height: 200px;
+$logo-weibo-image: 'sprite.png';
+$logo-weibo: (100px, 100px, -100px, -100px, 100px, 100px, 250px, 200px, 'sprite.png', 'logo-weibo', );
+$ranking-bg1-name: 'ranking_bg1';
+$ranking-bg1-x: 200px;
+$ranking-bg1-y: 0px;
+$ranking-bg1-offset-x: -200px;
+$ranking-bg1-offset-y: 0px;
+$ranking-bg1-width: 50px;
+$ranking-bg1-height: 30px;
+$ranking-bg1-total-width: 250px;
+$ranking-bg1-total-height: 200px;
+$ranking-bg1-image: 'sprite.png';
+$ranking-bg1: (200px, 0px, -200px, 0px, 50px, 30px, 250px, 200px, 'sprite.png', 'ranking_bg1', );
+$ranking-bg2-name: 'ranking_bg2';
+$ranking-bg2-x: 200px;
+$ranking-bg2-y: 30px;
+$ranking-bg2-offset-x: -200px;
+$ranking-bg2-offset-y: -30px;
+$ranking-bg2-width: 50px;
+$ranking-bg2-height: 30px;
+$ranking-bg2-total-width: 250px;
+$ranking-bg2-total-height: 200px;
+$ranking-bg2-image: 'sprite.png';
+$ranking-bg2: (200px, 30px, -200px, -30px, 50px, 30px, 250px, 200px, 'sprite.png', 'ranking_bg2', );
+$spritesheet-width: 250px;
+$spritesheet-height: 200px;
+$spritesheet-image: 'sprite.png';
+$spritesheet-sprites: ($logo-movie, $logo-video, $logo-wechat, $logo-weibo, $ranking-bg1, $ranking-bg2, );
+$spritesheet: (250px, 200px, 'sprite.png', $spritesheet-sprites, );
+
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+
+Example usage in HTML:
+
+`display: block` sprite:
+<div class="icon-home"></div>
+
+To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+
+// CSS
+.icon {
+  display: inline-block;
+}
+
+// HTML
+<i class="icon icon-home"></i>
+*/
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
+
+@include sprites($spritesheet-sprites);
+*/
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "an-html5-scaffold",
+  "version": "0.1.0",
+  "description": "一个简单的HTML5脚手架",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelzou/an-html5.git"
+  },
+  "keywords": [
+    "HTML5",
+    "scaffold"
+  ],
+  "author": "angelzou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/angelzou/an-html5/issues"
+  },
+  "homepage": "https://github.com/angelzou/an-html5#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-imagemin": "^3.0.3",
+    "gulp-open": "^2.0.0",
+    "gulp.spritesmith": "^6.2.1",
+    "normalize.css": "^4.2.0"
+  }
+}
