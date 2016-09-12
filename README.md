@@ -1,7 +1,8 @@
-# Slush An-html5 [![Build Status](https://secure.travis-ci.org/angelzou/slush-an-html5.png?branch=master)](https://travis-ci.org/angelzou/slush-an-html5) [![NPM version](https://badge-me.herokuapp.com/api/npm/slush-an-html5.png)](http://badges.enytc.com/for/npm/slush-an-html5)
+# Slush An-html5 
 
 > 用于开发HTML5的脚手架
 
+还在开发中，没有提交到npm中，请忽略下面的说明
 
 ## Getting Started
 
