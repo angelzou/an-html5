@@ -20,11 +20,31 @@
     "url": "https://github.com/angelzou/an-html5/issues"
   },
   "homepage": "https://github.com/angelzou/an-html5#readme",
-  "devDependencies": {
+  "dependencies": {
     "gulp": "^3.9.1",
+    "slush": ">=1.0.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.15.0",
+    "fastclick": "^1.0.6",
+    "gulp": "^3.9.1",
+    "gulp-alias-combo": "^0.3.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssimport": "^3.1.0",
+    "gulp-csso": "^2.0.0",
     "gulp-imagemin": "^3.0.3",
+    "gulp-jshint": "^2.0.1",
     "gulp-open": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^2.0.0",
     "gulp.spritesmith": "^6.2.1",
-    "normalize.css": "^4.2.0"
+    "jshint": "^2.9.3",
+    "minimist": "^1.2.0",
+    "mockjs": "^1.0.1-beta3",
+    "normalize.css": "^4.2.0",
+    "requirejs": "^2.3.1",
+    "seajs": "^3.0.2",
+    "zepto": "^1.2.0"
   }
 }
