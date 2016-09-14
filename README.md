@@ -1,8 +1,6 @@
-# Slush An-html5 [![Build Status](https://secure.travis-ci.org/angelzou/slush-an-html5.png?branch=master)](https://travis-ci.org/angelzou/slush-an-html5) [![NPM version](https://badge-me.herokuapp.com/api/npm/slush-an-html5.png)](http://badges.enytc.com/for/npm/slush-an-html5)
+# Slush An-html5
 
 > 一个简单的脚手架（还在开发中，还不完善，还有错误）
-
-## 开始
 
 全局安装`slush-an-scaffold`
 
