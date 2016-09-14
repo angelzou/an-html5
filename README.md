@@ -1,29 +1,45 @@
 # Slush An-html5 [![Build Status](https://secure.travis-ci.org/angelzou/slush-an-html5.png?branch=master)](https://travis-ci.org/angelzou/slush-an-html5) [![NPM version](https://badge-me.herokuapp.com/api/npm/slush-an-html5.png)](http://badges.enytc.com/for/npm/slush-an-html5)
 
-> 用于开发HTML5的脚手架
+> 一个简单的脚手架（还在开发中，还不完善，还有错误）
 
+## 开始
 
-## Getting Started
-
-Install `slush-an-html5` globally:
-
-```bash
-$ npm install -g slush-an-html5
-```
-
-### Usage
-
-Create a new folder for your project:
+全局安装`slush-an-scaffold`
 
 ```bash
-$ mkdir my-slush-an-html5
+$ npm install -g slush slush-an-scaffold
 ```
 
-Run the generator from within the new folder:
+如果你已经全局安装了`slush`，只需要安装`slusn-an-scaffold`即可
+
+### 使用
+
+给你的项目创建文件夹
 
 ```bash
-$ cd my-slush-an-html5 && slush an-html5
+$ mkdir my-slush-an-scaffold
 ```
+
+进入创建的文件夹并且生成脚手架文件:
+
+```bash
+$ cd my-slush-an-scaffold && slush an-scaffold
+```
+
+创建应用或者是单个页面
+```bash
+$ cd my-slush-an-scaffold && slush an-scaffold:app
+$ cd my-slush-an-scaffold && slush an-scaffold:page
+```
+
+项目中gulp自动构建的使用
+```bash
+$ cd my-slush-an-scaffold
+// ./dev/blog-pc/config.js是blog-pc应用下面的配置文件
+$ gulp watch --app ./dev/blog-pc/config.js
+```
+
+
 
 ## Getting To Know Slush
 
@@ -40,7 +56,7 @@ See the [CONTRIBUTING Guidelines](https://github.com/angelzou/slush-an-html5/blo
 ## Support
 If you have any problem or suggestion please open an issue [here](https://github.com/angelzou/slush-an-html5/issues).
 
-## License 
+## License
 
 The MIT License
 

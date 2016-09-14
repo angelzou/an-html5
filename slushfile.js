@@ -50,35 +50,95 @@ var defaults = (function () {
     };
 })();
 
-gulp.task('default', function (done) {
-    var prompts = [{
-        name: 'appName',
-        message: 'What is the name of your project?',
+var prompts = [{
+    name: 'appName',
+        message: '请输入项目名?',
         default: defaults.appName
     }, {
         name: 'appDescription',
-        message: 'What is the description?'
+        message: '请输入项目描述?'
     }, {
         name: 'appVersion',
-        message: 'What is the version of your project?',
+        message: '请输入项目版本号?',
         default: '0.1.0'
     }, {
         name: 'authorName',
-        message: 'What is the author name?',
+        message: '请输入作者名称?',
         default: defaults.authorName
     }, {
         name: 'authorEmail',
-        message: 'What is the author email?',
+        message: '请输入作者邮箱?',
         default: defaults.authorEmail
     }, {
         name: 'userName',
-        message: 'What is the github username?',
+        message: '请输入Github用户名?',
         default: defaults.userName
     }, {
         type: 'confirm',
         name: 'moveon',
-        message: 'Continue?'
-    }];
+        message: '继续?'
+}];
+
+var promptsModule = [{
+        name: 'appName',
+        message: '请输入应用名?(必须)',
+        validate: function(val) {
+            if (val === '') {
+                // Pass the return value in the done callback
+                return '请输入应用名?(必须)';
+            }
+            // Pass the return value in the done callback
+            return true;
+        }
+    }, {
+        name: 'appDescription',
+        message: '请输入应用描述?'
+    }, {
+        name: 'appVersion',
+        message: '请输入应用版本号?',
+        default: '0.1.0'
+    }, {
+        name: 'authorName',
+        message: '请输入作者名称?',
+        default: defaults.authorName
+    }, {
+        type: 'confirm',
+        name: 'moveon',
+        message: '继续?'
+}];
+
+var promptsPage = [{
+        name: 'appName',
+        message: '请输入页面名称，请以_pc或_h5结尾？(必须)',
+        validate: function(val) {
+            if (val === '') {
+                return '请输入页面名称，请以_pc或_h5结尾？(必须)';
+            }
+            if (/_pc/.test(val) || /_h5/.test(val)) {
+                return true;
+            } else {
+                return '输入的页面名称，请以_pc或_h5结尾？(必须)';
+            }
+
+        }
+    }, {
+        name: 'appDescription',
+        message: '请输入业务描述?'
+    }, {
+        name: 'appVersion',
+        message: '请输入页面版本号?',
+        default: '0.1.0'
+    }, {
+        name: 'authorName',
+        message: '请输入作者名称?',
+        default: defaults.authorName
+    }, {
+        type: 'confirm',
+        name: 'moveon',
+        message: '继续?'
+}];
+
+gulp.task('default', function (done) {
     //Ask
     inquirer.prompt(prompts,
         function (answers) {
@@ -95,6 +155,64 @@ gulp.task('default', function (done) {
                 }))
                 .pipe(conflict('./'))
                 .pipe(gulp.dest('./'))
+                .pipe(install())
+                .on('end', function () {
+                    done();
+                });
+        });
+});
+
+gulp.task('app', function(done) {
+    // var pageName = gulp.args[0];
+    // if (!pageName) {
+    //     console.log('请带上应用名称!');
+    //     done();
+    //     return;
+    // }
+    inquirer.prompt(promptsModule,
+        function (answers) {
+            if (!answers.moveon) {
+                return done();
+            }
+            answers.appNameSlug = _.slugify(answers.appName);
+            gulp.src(__dirname + '/modules/**')
+                .pipe(template(answers))
+                .pipe(rename(function (file) {
+                    if (file.basename[0] === '_') {
+                        file.basename = '.' + file.basename.slice(1);
+                    }
+                }))
+                .pipe(conflict('./dev/' + answers.appName + '/'))
+                .pipe(gulp.dest('./dev/' + answers.appName + '/'))
+                .pipe(install())
+                .on('end', function () {
+                    done();
+                });
+        });
+});
+
+gulp.task('page', function(done) {
+    // var pageName = gulp.args[0];
+    // if (!pageName) {
+    //     console.log('请带上页面名称！slush an-scaffold:page test_h5');
+    //     done();
+    //     return;
+    // }
+    inquirer.prompt(promptsPage,
+        function (answers) {
+            if (!answers.moveon) {
+                return done();
+            }
+            answers.appNameSlug = _.slugify(answers.appName);
+            gulp.src(__dirname + '/pages/**')
+                .pipe(template(answers))
+                .pipe(rename(function (file) {
+                    if (file.basename[0] === '_') {
+                        file.basename = '.' + file.basename.slice(1);
+                    }
+                }))
+                .pipe(conflict('./page/' + answers.appName + '/'))
+                .pipe(gulp.dest('./page/' + answers.appName + '/'))
                 .pipe(install())
                 .on('end', function () {
                     done();
