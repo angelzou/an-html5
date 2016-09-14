@@ -2,13 +2,13 @@
 
 > 一个简单的脚手架（还在开发中，还不完善，还有错误）
 
-全局安装`an-scaffold`
+全局安装`slush-an-scaffold`
 
 ```bash
-$ npm install -g slush an-scaffold
+$ npm install -g slush slush-an-scaffold
 ```
 
-如果你已经全局安装了`slush`，只需要安装`an-scaffold`即可
+如果你已经全局安装了`slush`，只需要安装`slush-an-scaffold`即可
 
 ### 使用
 
