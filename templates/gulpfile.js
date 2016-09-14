@@ -12,7 +12,8 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     cssimport = require('gulp-cssimport'),
     uglify = require('gulp-uglify'),
-    jshint = require('gulp-jshint');
+    jshint = require('gulp-jshint'),
+    filter = require('gulp-filter');
 
 /**
  * 导入应用配置信息，运行下面所有命令时，都依赖于APP配置信息
@@ -24,6 +25,8 @@ var knownOptions = {
 var appConfig = require(minimist(process.argv.slice(2), knownOptions).app);
 // console.log(appConfig);
 
+var imgFilter = filter('*.+(png|jpg|jpeg|gif|svg)', {restore:true});
+
 /**
  * sprite总命令
  */
@@ -32,6 +35,7 @@ gulp.task('sprite:retina', ['sprite:logo', 'sprite:min'], function() {});
 // 创建雪碧图
 gulp.task('sprite:icon', function() {
     var spriteData = gulp.src(appConfig.sprite.icon.src) // source path of the sprite images
+        .pipe(imgFilter)
         .pipe(spritesmith(
             appConfig.sprite.icon
         ));
@@ -41,6 +45,7 @@ gulp.task('sprite:icon', function() {
 // 创建雪碧图
 gulp.task('sprite:logo', function() {
     var spriteData = gulp.src(appConfig.sprite.logo.src) // source path of the sprite images
+        .pipe(imgFilter)
         .pipe(spritesmith(
             appConfig.sprite.logo
         ));
@@ -90,7 +95,7 @@ gulp.task('server:static', function() {
         server: {
             baseDir: appConfig.server.baseDir
         },
-        reloadDelay: 1000
+        reloadDelay: 500 // 设置延迟是因为监听文件变化需要
     });
 });
 // 使用代理服务器
@@ -99,7 +104,7 @@ gulp.task('server:proxy', function() {
         // 设置代理
         proxy: appConfig.server.proxy, // 你的域名或IP
         files: appConfig.server.files, // 自动刷新监听的文件
-        reloadDelay: 1000
+        reloadDelay: 500
     });
 });
 

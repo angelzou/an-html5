@@ -27,6 +27,7 @@
     "gulp-alias-combo": "^0.3.0",
     "gulp-cssimport": "^3.1.0",
     "gulp-csso": "^2.0.0",
+    "gulp-filter": "^4.0.0",
     "gulp-imagemin": "^3.0.3",
     "gulp-jshint": "^2.0.1",
     "gulp-open": "^2.0.0",
