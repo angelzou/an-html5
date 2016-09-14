@@ -176,7 +176,7 @@ gulp.task('app', function(done) {
             }
             answers.appNameSlug = _.slugify(answers.appName);
             gulp.src(__dirname + '/modules/**')
-                .pipe(template(answers))
+                //.pipe(template(answers))
                 .pipe(rename(function (file) {
                     if (file.basename[0] === '_') {
                         file.basename = '.' + file.basename.slice(1);
@@ -184,7 +184,7 @@ gulp.task('app', function(done) {
                 }))
                 .pipe(conflict('./dev/' + answers.appName + '/'))
                 .pipe(gulp.dest('./dev/' + answers.appName + '/'))
-                .pipe(install())
+                // .pipe(install())
                 .on('end', function () {
                     done();
                 });
@@ -213,7 +213,7 @@ gulp.task('page', function(done) {
                 }))
                 .pipe(conflict('./page/' + answers.appName + '/'))
                 .pipe(gulp.dest('./page/' + answers.appName + '/'))
-                .pipe(install())
+                // .pipe(install())
                 .on('end', function () {
                     done();
                 });
