@@ -15,7 +15,10 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     _ = require('underscore.string'),
     inquirer = require('inquirer'),
-    path = require('path');
+    path = require('path'),
+    ignore = require('gulp-ignore');
+
+var tplFilter = '/templates/tpl/*.*.tpl';
 
 function format(string) {
     var username = string.toLowerCase();
@@ -90,21 +93,21 @@ var promptsModule = [{
             // Pass the return value in the done callback
             return true;
         }
-    }, {
-        name: 'appDescription',
-        message: '请输入应用描述?'
-    }, {
-        name: 'appVersion',
-        message: '请输入应用版本号?',
-        default: '0.1.0'
-    }, {
-        name: 'authorName',
-        message: '请输入作者名称?',
-        default: defaults.authorName
-    }, {
-        type: 'confirm',
-        name: 'moveon',
-        message: '继续?'
+        }, {
+            name: 'appDescription',
+            message: '请输入应用描述?'
+        }, {
+            name: 'appVersion',
+            message: '请输入应用版本号?',
+            default: '0.1.0'
+        }, {
+            name: 'authorName',
+            message: '请输入作者名称?',
+            default: defaults.authorName
+        }, {
+            type: 'confirm',
+            name: 'moveon',
+            message: '继续?'
 }];
 
 var promptsPage = [{
@@ -121,18 +124,23 @@ var promptsPage = [{
             }
 
         }
-    }, {
-        name: 'appDescription',
-        message: '请输入业务描述?'
-    }, {
-        name: 'appVersion',
-        message: '请输入页面版本号?',
-        default: '0.1.0'
-    }, {
-        name: 'authorName',
-        message: '请输入作者名称?',
-        default: defaults.authorName
-    }, {
+        }, {
+            name: 'appDescription',
+            message: '请输入业务描述?'
+        }, {
+            name: 'appVersion',
+            message: '请输入页面版本号?',
+            default: '0.1.0'
+        }, {
+            name: 'authorName',
+            message: '请输入作者名称?',
+            default: defaults.authorName
+        }, {
+            type: 'confirm',
+            name: 'moveon',
+            message: '继续?'
+}];
+var promptsCommon = [{
         type: 'confirm',
         name: 'moveon',
         message: '继续?'
@@ -146,7 +154,8 @@ gulp.task('default', function (done) {
                 return done();
             }
             answers.appNameSlug = _.slugify(answers.appName);
-            gulp.src(__dirname + '/templates/**')
+            gulp.src([__dirname + '/templates/**', '!' + __dirname + '/templates/tpl/**'])
+                .pipe(ignore.exclude(__dirname + tplFilter))
                 .pipe(template(answers))
                 .pipe(rename(function (file) {
                     if (file.basename[0] === '_') {
@@ -176,7 +185,7 @@ gulp.task('app', function(done) {
             }
             answers.appNameSlug = _.slugify(answers.appName);
             gulp.src(__dirname + '/modules/**')
-                //.pipe(template(answers))
+                .pipe(template(answers))
                 .pipe(rename(function (file) {
                     if (file.basename[0] === '_') {
                         file.basename = '.' + file.basename.slice(1);
@@ -184,7 +193,7 @@ gulp.task('app', function(done) {
                 }))
                 .pipe(conflict('./dev/' + answers.appName + '/'))
                 .pipe(gulp.dest('./dev/' + answers.appName + '/'))
-                // .pipe(install())
+                .pipe(install())
                 .on('end', function () {
                     done();
                 });
@@ -213,7 +222,7 @@ gulp.task('page', function(done) {
                 }))
                 .pipe(conflict('./page/' + answers.appName + '/'))
                 .pipe(gulp.dest('./page/' + answers.appName + '/'))
-                // .pipe(install())
+                .pipe(install())
                 .on('end', function () {
                     done();
                 });

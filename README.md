@@ -1,11 +1,11 @@
-# Slush An-html5
+# Slush an-scaffold
 
-> 一个简单的脚手架（还在开发中，还不完善，还有错误）
+> 一个简单的脚手架，基于gulp、slush
 
 全局安装`slush-an-scaffold`
 
 ```bash
-$ npm install -g slush slush-an-scaffold
+$ npm install -g gulp slush slush-an-scaffold
 ```
 
 如果你已经全局安装了`slush`，只需要安装`slush-an-scaffold`即可

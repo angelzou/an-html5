@@ -24,7 +24,7 @@ module.exports = {
             imgName: 'icon-sprite.png',
             cssName: 'icon-sprite.scss',
             cssFormat: 'scss',
-            cssTemplate: './tpl/scss.template.mustache',
+            cssTemplate: './tpl/scss.sprite.tpl',
             algorithm: 'binary-tree',
             padding: 8,
             cssVarMap: function(sprite) {
