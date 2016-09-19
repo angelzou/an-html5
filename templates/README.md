@@ -1,6 +1,6 @@
 #an-scaffold
 
-## 使用
+### 使用
 
 创建应用或者是单个页面（进入项目根目录）
 ```bash
@@ -19,7 +19,12 @@ $ gulp watch --app ./dev/blog-pc/config.js
 ### tpl【模板文件夹】
 
 ### 参考
-1. `scss.template.mustache`
+1. `scss.sprite.tpl`
     雪碧图生成css时，使用的模板文件 [https://github.com/banricho/webLog/issues/1](https://github.com/banricho/webLog/issues/1)
 
 2. gulp：从命令行传递参数[http://www.gulpjs.com.cn/docs/recipes/pass-arguments-from-cli/](http://www.gulpjs.com.cn/docs/recipes/pass-arguments-from-cli/)
+
+### TODO
+1. mock测试数据
+2. cdn上传
+

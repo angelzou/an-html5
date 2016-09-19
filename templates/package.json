@@ -41,5 +41,9 @@
     "requirejs": "^2.3.1",
     "seajs": "^3.0.2",
     "zepto": "^1.2.0"
+  },
+  "dependencies": {
+    "imagemin-gifsicle": "^5.1.0",
+    "imagemin-optipng": "^5.2.1"
   }
 }

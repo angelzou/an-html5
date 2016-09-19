@@ -144,6 +144,5 @@ gulp.task('watch', ['sprite:normal', 'css', 'js', 'image:min', 'server'], functi
     gulp.watch(appConfig.js.src + '/*.js', ['js-watch'])
     gulp.watch(appConfig.sprite.image.src + '/**/*.+(png|jpg|jpeg|gif|svg)', ['image:min'])
     gulp.watch(appConfig.sprite.icon.src + '/**/*.+(png|jpg|jpeg|gif|svg)', ['sprite:normal'])
-    gulp.watch('./**/*.html').on('change', reload);
-    gulp.watch('./**/**/*.html').on('change', reload);
+    gulp.watch(appConfig.html).on('change', reload);
 });

@@ -61,6 +61,10 @@ module.exports = {
         src: parentDir + appName + '/js',
         dest: './dist/' + parentDir + appName + '/js'
     },
+    html: [
+        parentDir + appName + '/*.html',
+        parentDir + appName + '/html/*.html'
+    ]
     cdn: {
 
     }
