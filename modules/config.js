@@ -15,7 +15,7 @@ module.exports = {
         // 图片压缩
         image: {
             src: parentDir + appName + '/img', // 源地址
-            dest: './dist/' + appName + '/img' // 目标地址
+            dest: './dist/' + parentDir + appName + '/img' // 目标地址
         },
         // 生成正常的sprite图
         icon: {
@@ -64,7 +64,7 @@ module.exports = {
     html: [
         parentDir + appName + '/*.html',
         parentDir + appName + '/html/*.html'
-    ]
+    ],
     cdn: {
 
     }
