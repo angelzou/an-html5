@@ -22,6 +22,13 @@ module.exports = {
         src: parentDir + appName,
         dest: './dist/' + parentDir + appName + '/js'
     },
+    html: {
+        src: parentDir + appName,
+        dest:  './dist/' + parentDir + appName + '/html',
+        listen: [
+            './dist/' + parentDir + appName + '/*.html'
+        ]
+    },
     cdn: {
 
     }

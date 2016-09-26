@@ -5,7 +5,6 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     open = require('gulp-open'),
     browserSync = require('browser-sync'),
-    reload      = browserSync.reload,
     minimist = require('minimist'),
     sass = require('gulp-sass'),
     csso = require('gulp-csso'),
@@ -13,7 +12,9 @@ var gulp = require('gulp'),
     cssimport = require('gulp-cssimport'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
-    filter = require('gulp-filter');
+    filter = require('gulp-filter'),
+    fileInclude = require('gulp-file-include'),
+    clean = require('gulp-clean');
 
 /**
  * 导入应用配置信息，运行下面所有命令时，都依赖于APP配置信息
@@ -88,12 +89,20 @@ gulp.task('server', function() {
     }
 });
 
+var serverConf = {};
+if (appConfig.isDev) {
+    serverConf.dir = appConfig.server.devDir;
+    serverConf.files = appConfig.server.devFiles;
+} else {
+    serverConf.dir = appConfig.server.productionDir;
+    serverConf.files = appConfig.server.productionFiles;
+}
 // 使用内置的静态服务器
 gulp.task('server:static', function() {
     browserSync({
         // 从这个项目的根目录下面的dev目录启动服务器
         server: {
-            baseDir: appConfig.server.baseDir
+            baseDir: serverConf.dir
         },
         reloadDelay: 500 // 设置延迟是因为监听文件变化需要
     });
@@ -103,7 +112,7 @@ gulp.task('server:proxy', function() {
     browserSync({
         // 设置代理
         proxy: appConfig.server.proxy, // 你的域名或IP
-        files: appConfig.server.files, // 自动刷新监听的文件
+        files: serverConf.files, // 自动刷新监听的文件
         reloadDelay: 500
     });
 });
@@ -137,12 +146,30 @@ gulp.task('js', function(){
 gulp.task('js-watch', ['js'], browserSync.reload);
 
 /**
+ * html, file include
+ */
+gulp.task('html', function() {
+    gulp.src(appConfig.html.src + '/*.html')
+        .pipe(fileInclude({
+          prefix: '@@',
+          basepath: '@file'
+        }))
+    .pipe(gulp.dest(appConfig.html.dest));
+});
+/**
+ * file clean
+ */
+gulp.task('clean',function(){
+    gulp.src('./dist/' + appConfig.appName + '/').pipe(clean());
+});
+/**
  * watch
  */
-gulp.task('watch', ['sprite:normal', 'css', 'js', 'image:min', 'server'], function() {
+gulp.task('watch', ['clean', 'sprite:normal', 'css', 'js', 'html', 'image:min', 'server'], function() {
     gulp.watch(appConfig.css.sass.src + '/*.scss', ['css-watch'])
     gulp.watch(appConfig.js.src + '/*.js', ['js-watch'])
     gulp.watch(appConfig.sprite.image.src + '/**/*.+(png|jpg|jpeg|gif|svg)', ['image:min'])
     gulp.watch(appConfig.sprite.icon.src + '/**/*.+(png|jpg|jpeg|gif|svg)', ['sprite:normal'])
-    gulp.watch(appConfig.html).on('change', reload);
+    gulp.watch(appConfig.html.listen).on('change', browserSync.reload);
 });
+

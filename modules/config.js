@@ -1,14 +1,17 @@
 var appName = "<%= appName %>";
 var parentDir = './dev/';
 module.exports = {
+    isDev: false,
     // 应用名称
     appName: appName,
     // 服务器配置信息，文档：http://www.browsersync.cn/docs/gulp/
     server: {
         isProxy: false, // 是否使用代理服务器，false为不使用代理，true为使用代理
         proxy: 'www.angel.com', // 代理服务器的域名和IP
-        files: [parentDir + appName + '/*.html'], // browsersync可以在工作中监听的文件
-        baseDir: parentDir + appName + '/'  // 使用browsersync内置的静态服务器
+        devFiles: [parentDir + appName + '/*.html'], // browsersync可以在工作中监听的文件
+        devDir: parentDir + appName + '/',  // 使用browsersync内置的静态服务器
+        productionFiles: ['./dist/' + appName + '/*.html', './dist/' + appName + '/html/*.html'],
+        productionDir: './dist/' + appName + '/html/'
     },
     // 雪碧图&图片配置信息
     sprite: {
@@ -55,16 +58,20 @@ module.exports = {
             dest: parentDir + appName + '/css/css'
         },
         src: parentDir + appName + '/css/css',
-        dest: './dist/' + parentDir + appName + '/css'
+        dest: './dist/'+ appName + '/css'
     },
     js: {
         src: parentDir + appName + '/js',
-        dest: './dist/' + parentDir + appName + '/js'
+        dest: './dist/'+ appName + '/js'
     },
-    html: [
-        parentDir + appName + '/*.html',
-        parentDir + appName + '/html/*.html'
-    ],
+    html: {
+        src: parentDir + appName + '/html',
+        dest:  './dist/' + appName + '/html',
+        listen: [
+            './dist/' + appName + '/html/*.html',
+            './dist/' + appName + '/*.html'
+        ]
+    },
     cdn: {
 
     }
